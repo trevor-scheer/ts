@@ -278,3 +278,16 @@ test('Distinguish between classes with different constructors', () => {
 
   expectTypeOf<typeof A>().toEqualTypeOf<typeof C>()
 })
+
+test('Distinguish between classes with different generic parameters', () => {
+  class A<T> {
+    constructor(a: T) {
+      this.value = a
+    }
+  }
+
+  const numberA = new A(1);
+  const stringA = new A("1");
+
+  expectTypeOf(numberA).not.toEqualTypeOf(stringA);
+})
